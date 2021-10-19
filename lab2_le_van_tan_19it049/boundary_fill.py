@@ -6,7 +6,7 @@ import sys
 sys.setrecursionlimit(100000)
 
 def init():
-    glClearColor(2.0, 1.0, 1.0, 0.0)
+    # glClearColor(2.0, 1.0, 0.0, 0.0)
     glOrtho(0, 640, 0, 480, -1, 1)
 
 
@@ -29,6 +29,7 @@ def mouse(btn, state, x, y):
     y = 480-y
     if btn == GLUT_LEFT_BUTTON:
         if state == GLUT_DOWN:
+            print(x,y)
             bCol = [1, 0, 0]
             color = [0, 0, 1]
             bound_it(x, y, color, bCol)
@@ -37,10 +38,9 @@ def myDisplay():
     glClear(GL_COLOR_BUFFER_BIT)
     glColor3f(1,0,0)
     glBegin(GL_LINE_LOOP)
-    glVertex2i(100,400)
-    glVertex2i(300,400)
-    glVertex2i(150,200)
-    glVertex2i(10,300)
+    glVertex2i(254,308)
+    glVertex2i(276,346)
+    glVertex2i(314,304)
     glEnd()
     glFlush()
 

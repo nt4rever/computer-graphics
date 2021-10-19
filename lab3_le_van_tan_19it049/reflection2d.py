@@ -106,10 +106,10 @@ def MouseEventHandler(button, state, x, y):
 
 def keyPressed(key, x, y):
     print(key)
-    if key == b'l':
-        rotate(math.pi/12)
-    elif key == b'r':
-        rotate(-math.pi/12)
+    # if key == b'l':
+    #     rotate(math.pi/12)
+    # elif key == b'r':
+    #     rotate(-math.pi/12)
 
 
 if __name__== "__main__":
