@@ -34,15 +34,15 @@ def projective(type,P):
     
 def draw(R, h):
     P = Point3D(0,0,0)
-    Delta_U = 0.06
-    Delta_V = 0.03
+    Delta_U = 0.03
+    Delta_V = 0.1
     u = 0
     glBegin(GL_LINE_LOOP)
     while u < 2*math.pi:
         v = 0
         while v < 1:
-            P.x = R*math.cos(u)
-            P.y = R*math.sin(u)
+            P.x = v*R*math.cos(u)
+            P.y = v*R*math.sin(u)
             P.z = v*h
             p = projective(chieu,P)
             glVertex2f(p.x, p.y)
@@ -55,7 +55,7 @@ def draw(R, h):
 def display():
     glClear(GL_COLOR_BUFFER_BIT)
     glColor3f(1, .5, .25)
-    draw(40,120)
+    draw(40,80)
 
 def keyPressed(key, x, y):
     global chieu
@@ -71,7 +71,7 @@ if __name__ == "__main__":
     glutInit()
     glutInitWindowSize(640, 640)
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB)
-    glutCreateWindow("cylinder")
+    glutCreateWindow("cone")
     gluOrtho2D(-width/2, height/2, -height/2, width/2)
     glMatrixMode(GL_PROJECTION)
     glutDisplayFunc(display)
