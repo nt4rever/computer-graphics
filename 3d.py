@@ -136,6 +136,7 @@ def keyboard(key, x, y):
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
         gluLookAt(rotLx, rotLy, 15.0 + rotLz, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0)
+        print(rotLx,rotLy,rotLz)
     if key == b'l':
         if rotLz + 14 >= 0:
             rotLz -= 2.0
