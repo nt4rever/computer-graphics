@@ -2,7 +2,6 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 import numpy as np
-import math
 
 
 class Point:
@@ -61,25 +60,27 @@ class FaceModel:
         return np.cross(v1, v2)
 
 
-listPoint = [[1, 0, 0], [0, 0, -1], [-1, 0, 0], [0, 0, 1], [0, 1, 0]]
-# a-1 b-2 c-3 d-4 e-5
+listPoint = [[0, 0, 0], [0, 1, 0], [0, 1, 1], [0, 0.5, 1.5], [
+    0, 0, 1], [1, 0, 0], [1, 1, 0], [1, 1, 1], [1, 0.5, 1.5], [1, 0, 1]]
+
 listFace = [
-    [1, 2, 5],
-    [1, 5, 4],
-    [3, 4, 5],
-    [2, 3, 5],
-    [1, 4, 3, 2]
+    [1, 2, 7, 6],
+    [2, 3, 8, 7],
+    [1, 6, 10, 5],
+    [7, 8, 9, 10, 6],
+    [2, 1, 5, 4, 3],
+    [4, 9, 8, 3],
+    [5, 10, 9, 4]
 ]
 
 V = [50, 50, 50]
 
-view = False
 
 numVertex = len(listPoint)
 numFace = len(listFace)
 faceModel = FaceModel(numVertex, numFace)
 for p in listPoint:
-    point = Point(p[0]*100, p[1]*100, p[2]*100)
+    point = Point(p[0]*200, p[1]*200, p[2]*200)
     faceModel.addPoint(point)
 
 for id, e in enumerate(listFace):
@@ -94,16 +95,7 @@ def init():
 def draw():
     for p in faceModel.getFaceTypes():
         k = V@faceModel.getN(p)
-        if view:
-            if k >= 0:
-                glBegin(GL_LINE_LOOP)
-                listP = p.indexFace
-                for i in listP:
-                    p = faceModel.getPoints()[i-1]
-                    glVertex3f(p.x, p.y, p.z)
-                glEnd()
-                glFlush()
-        else:
+        if k >= 0:
             glBegin(GL_LINE_LOOP)
             listP = p.indexFace
             for i in listP:
@@ -111,21 +103,23 @@ def draw():
                 glVertex3f(p.x, p.y, p.z)
             glEnd()
             glFlush()
+        else:
+            glEnable(GL_LINE_STIPPLE)
+            glLineStipple(2, 0xAAA)
+            glBegin(GL_LINE_STRIP)
+            listP = p.indexFace
+            for i in listP:
+                p = faceModel.getPoints()[i-1]
+                glVertex3f(p.x, p.y, p.z)
+            glEnd()
+            glDisable(GL_LINE_STIPPLE)
 
 
 def display():
     glClear(GL_COLOR_BUFFER_BIT)
-    glColor3f(1, .5, .25)
+    glColor3f(0.5, 1, 1)
     draw()
 
-
-def keyPressed(key, x, y):
-    global view
-    if key == b't':
-        view = True
-    elif key == b'f':
-        view = False
-    glutPostRedisplay()
 
 
 if __name__ == "__main__":
@@ -135,7 +129,6 @@ if __name__ == "__main__":
     glutCreateWindow("back_face")
     init()
     glMatrixMode(GL_MODELVIEW)
-    gluLookAt(50, 50, 50, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0)
+    gluLookAt(30, 20, 50, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0)
     glutDisplayFunc(display)
-    glutKeyboardFunc(keyPressed)
     glutMainLoop()

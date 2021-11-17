@@ -2,9 +2,8 @@ from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
 
-listPoint = []
-width = 600
-height = 600
+width = 800
+height = 800
 
 P = []
 n = -1
@@ -66,7 +65,7 @@ def MouseEventHandler(button, state, x, y):
     global n
     if button == GLUT_LEFT_BUTTON and state == GLUT_UP:
         n += 1
-        p = Point(x-300, 300-y)
+        p = Point((int)(x-width/2), (int)(height/2-y))
         P.append(p)
         glutPostRedisplay()
 
@@ -81,9 +80,9 @@ def keyPressed(key, x, y):
 
 def myDisplay():
     glClear(GL_COLOR_BUFFER_BIT)
-    glColor3f(1.0, 0.0, 0.0)
+    glColor3f(2.0, 0.5, 1.0)
     VeDaGiacKiemSoat(P, n)
-    glColor3f(1.0, 1.0, 0.0)
+    glColor3f(0.5, 1.0, 1.0)
     draw(n, P)
     glFlush()
 
@@ -92,8 +91,7 @@ if __name__ == "__main__":
     glutInit()
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB)
     glutInitWindowSize(width, height)
-    glutInitWindowPosition(10, 10)
-    glutCreateWindow("Lab4-LineBezier")
+    glutCreateWindow("LineBezier")
     gluOrtho2D(-width/2, height/2, -height/2, width/2)
     glutDisplayFunc(myDisplay)
     glutMouseFunc(MouseEventHandler)

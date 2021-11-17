@@ -100,7 +100,7 @@ class Sphere:
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
         # Set color to white
-        glColor3f(1.0, 1.0, 1.0)
+        glColor3f(1.0, 1.0, 0.5)
 
         # Set shade model
         glShadeModel(self.surface)
@@ -185,11 +185,11 @@ def main():
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH)
 
     # Set the Window size and position
-    glutInitWindowSize(600, 600)
+    glutInitWindowSize(400, 400)
     glutInitWindowPosition(50, 100)
 
     # Create the window with given title
-    glutCreateWindow('Sphere')
+    glutCreateWindow('To bong')
 
     # Instantiate the sphere object
     s = Sphere(1.0)
